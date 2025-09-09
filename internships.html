@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternSurf • Internships</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">INTERNSURF</div>
+    <nav><ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="internships.html">Internships</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    </ul></nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Search Internships</h2>
+      <div class="form-row">
+        <div>
+          <label for="q">Keyword</label>
+          <input id="q" placeholder="e.g., software, data, marketing">
+        </div>
+        <div>
+          <label for="loc">Location</label>
+          <input id="loc" placeholder="e.g., Dallas, Remote">
+        </div>
+      </div>
+      <div style="margin: .75rem 0;">
+        <label><input type="checkbox" id="remote"> Remote/Hybrid only</label>
+      </div>
+      <button class="btn" id="searchBtn">Search</button>
+    </section>
+
+    <section class="card">
+      <h2>Results</h2>
+      <div id="results" class="list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">© 2025 INTERNSURF</footer>
+
+  <script>
+    const API = "https://YOUR-WORKER-SUBDOMAIN.workers.dev/jobs"; // <-- replace with your worker URL
+
+    async function search() {
+      const q = document.getElementById('q').value.trim();
+      const loc = document.getElementById('loc').value.trim();
+      const remote = document.getElementById('remote').checked ? 'true' : '';
+      const url = new URL(API);
+      if (q) url.searchParams.set('query', q);
+      if (loc) url.searchParams.set('location', loc);
+      if (remote) url.searchParams.set('remote', 'true');
+
+      const box = document.getElementById('results');
+      box.innerHTML = 'Loading…';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (!data.jobs || !data.jobs.length) {
+          box.innerHTML = '<p>No results.</p>';
+          return;
+        }
+        box.innerHTML = data.jobs.map(j => `
+          <li>
+            <strong>${escapeHtml(j.title)}</strong>
+            <div style="color:var(--muted)">${escapeHtml(j.company)} • ${escapeHtml(j.location || '—')} ${j.is_remote ? '• Remote' : ''}</div>
+            <div style="margin-top:.5rem">
+              <a class="btn" href="${j.url}" target="_blank" rel="noopener">Apply</a>
+              <a class="btn outline" href="apply.html?title=${encodeURIComponent(j.title)}">Save to My Applications</a>
+            </div>
+          </li>
+        `).join('');
+      } catch (e) {
+        box.innerHTML = '<p>Failed to load jobs. Try again.</p>';
+      }
+    }
+
+    function escapeHtml(s='') {
+      return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    document.getElementById('searchBtn').addEventListener('click', search);
+    // auto-load on page open
+    search();
+  </script>
+</body>
+</html>
