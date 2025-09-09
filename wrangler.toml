@@ -1,0 +1,11 @@
+name = "internsurf-scraper"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Bind a KV namespace to store cached jobs
+kv_namespaces = [
+  { binding = "JOBS", id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }
+]
+
+[triggers]
+crons = ["0 * * * *"]   # run every hour
