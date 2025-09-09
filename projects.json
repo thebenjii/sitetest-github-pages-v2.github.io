@@ -1,0 +1,44 @@
+[
+  {
+    "title": "InternSurf",
+    "description": "A student internship-tracking platform with authentication and dashboards.",
+    "image": "/assets/img/sample1.jpg",
+    "demo": "https://sitetest.github.io/internsurf",
+    "repo": "https://github.com/sitetest/internsurf"
+  },
+  {
+    "title": "Question Maker",
+    "description": "A multi-mode Q&A app with session export and profiles.",
+    "image": "/assets/img/sample2.jpg",
+    "demo": "https://sitetest.github.io/question-maker",
+    "repo": "https://github.com/sitetest/question-maker"
+  },
+  {
+    "title": "SMU Auction Game",
+    "description": "Processing/Java auction game with live AI counter-bids.",
+    "image": "/assets/img/sample3.jpg",
+    "demo": "",
+    "repo": ""
+  },
+  {
+    "title": "Life Simulation Engine",
+    "description": "Agent-based sim for autonomous human lifecycles.",
+    "image": "/assets/img/sample4.jpg",
+    "demo": "",
+    "repo": ""
+  },
+  {
+    "title": "Power Grid Toolkit",
+    "description": "Utilities for distribution design & quick calcs.",
+    "image": "/assets/img/sample5.jpg",
+    "demo": "",
+    "repo": ""
+  },
+  {
+    "title": "Music: 'Waiting Room'",
+    "description": "Original song in the style of Daniel Caesar; demo & chords.",
+    "image": "/assets/img/sample6.jpg",
+    "demo": "",
+    "repo": ""
+  }
+]
